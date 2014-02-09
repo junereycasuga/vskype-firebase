@@ -14,7 +14,6 @@ curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 $response = json_decode(curl_exec($curl));
 
 foreach($response->rates as $key=>$value){
-    echo $key."=".$value;
     $firebase->set($key, $value);
 }
 curl_close($curl);
