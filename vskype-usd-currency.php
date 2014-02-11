@@ -14,14 +14,13 @@ curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 $response = json_decode(curl_exec($curl));
 
 foreach($response->rates as $key=>$value){
-    $arr[]=array('currency_code'=>$key, 'rate'=>$value);
+    $arr[] = array('currency_code'=>$key, 'rate'=>$value);
 }
 
-$count = count($arr);
-for($i=0; $i<$count; $i++){
-    $firebase = new Firebase('https://vskype.firebaseio.com/usd_currency/data/'.$i);
-    $firebase->set('currency_code', $arr[$i]['currency_code']);
-    $firebase->set('rate', $arr[$i]['rate']);
+foreach($arr as $val){
+    $firebase = new Firebase('https://vskype.firebaseio.com/usd_currency/'.$val['currency_code']);
+    $firebase->set('currency_code', $val['currency_code']);
+    $firebase->set('rate', $val['rate']);
 }
 
 curl_close($curl);
