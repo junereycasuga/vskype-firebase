@@ -4,6 +4,7 @@ require_once 'firebase/firebaseLib.php';
 
 // create a firebase instance
 $firebase = new Firebase('https://vskype.firebaseio.com/usd_currency/','bcwy4lyI7bwI8J1IpWhJxR1hsFQjNEkfEtPYWK34');
+$firebaseRates = new Firebase('https://vskype.firebaseio.com/rates/', 'bcwy4lyI7bwI8J1IpWhJxR1hsFQjNEkfEtPYWK34');
 
 $url = 'http://openexchangerates.org/api/latest.json?app_id=94a3503931494c4381bc59a7bd89cde3';
 $curl = curl_init();
@@ -21,6 +22,10 @@ foreach($arr as $val){
     $firebase = new Firebase('https://vskype.firebaseio.com/usd_currency/'.$val['currency_code']);
     $firebase->set('currency_code', $val['currency_code']);
     $firebase->set('rate', $val['rate']);
+}
+
+foreach($arr as $val){
+    $firebaseRates->set($val['currency_code'], $val['rate']);
 }
 
 curl_close($curl);
