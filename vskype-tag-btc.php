@@ -12,7 +12,15 @@ curl_setopt($curl, CURLOPT_URL, $url);
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 
 $response = json_decode(curl_exec($curl));
-$firebase->set('price', $response->price);
+if($response->price != null){
+  $firebase->set('price', $response->price);
+} else {
+  curl_setopt($curl, CURLOPT_URL, $url2);
+  curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+
+  $response2 = json_decode(curl_exec($curl));
+  $firebase-set('price', $response2->last);
+}
 
 curl_close($curl);
 ?>
