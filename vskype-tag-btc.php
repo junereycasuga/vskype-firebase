@@ -6,6 +6,7 @@ require_once 'firebase/firebaseLib.php';
 $firebase = new Firebase('https://vskype.firebaseio.com/tag_btc','bcwy4lyI7bwI8J1IpWhJxR1hsFQjNEkfEtPYWK34');
 
 $url = 'http://www.cryptocoincharts.info/v2/api/tradingPair/TAG_BTC';
+$url2 = 'http://data.bter.com/api/1/ticker/tag_btc';
 $curl = curl_init();
 
 curl_setopt($curl, CURLOPT_URL, $url);
